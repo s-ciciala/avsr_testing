@@ -33,9 +33,9 @@ class PositionalEncoding(nn.Module):
 
 
     def forward(self, inputBatch):
-        print("*"*80)
-        print("inputBatch " + str(len(inputBatch)))
-        print("inputBatchPE "  + str(len(self.pe[:inputBatch.shape[0],:,:])))
+        # print("*"*80)
+        # print("inputBatch " + str(len(inputBatch)))
+        # print("inputBatchPE "  + str(len(self.pe[:inputBatch.shape[0],:,:])))
         if len(inputBatch) > len(self.pe[:inputBatch.shape[0],:,:]):
             diff = len(inputBatch) - len(self.pe[:inputBatch.shape[0],:,:])
             inputBatch = inputBatch[:-diff]
