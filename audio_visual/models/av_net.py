@@ -36,9 +36,9 @@ class PositionalEncoding(nn.Module):
         print("*"*80)
         print("inputBatch " + str(len(inputBatch)))
         print("inputBatchPE "  + str(len(self.pe[:inputBatch.shape[0],:,:])))
-        if len(self.pe[:inputBatch.shape[0],:,:]) > len(inputBatch):
-            exit()
-
+        if len(inputBatch) > len(self.pe[:inputBatch.shape[0],:,:]):
+            diff = len(inputBatch) - len(self.pe[:inputBatch.shape[0],:,:])
+            inputBatch = inputBatch[:-diff]
         outputBatch = inputBatch + self.pe[:inputBatch.shape[0],:,:]
         return outputBatch
 
