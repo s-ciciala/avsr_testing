@@ -162,6 +162,13 @@ def split_trainval(fileList):
     return train, val
 
 
+def lrs3_parse(example):
+    splt = example.split("{")
+    print("Had to split")
+    print("Was " + str(example))
+    print("Is "+ str(splt))
+    return splt[0]
+
 def generate_train_file(train):
     # Generating train.txt for splitting the pretrain set into train sets
     train_dir_file = args["DATA_DIRECTORY"] + "/train.txt"
@@ -193,7 +200,6 @@ def generate_train_file(train):
             f.writelines(example_dict["TEXT"][i])
             f.writelines("\n")
 
-
 def generate_val_file(val):
     # Generating val.txt for splitting the pretrain set into validation sets
     val_dir_file = args["DATA_DIRECTORY"] + "/val.txt"
@@ -206,16 +212,13 @@ def generate_val_file(val):
         text_file = val_dir + ".txt"
         with open(text_file, "r") as f:
             lines = f.readlines()
-            # print(text_file)
             examples_npy_dir = text_file.split("txt")[0][:-1]
-            # print(examples_npy_dir)
-            example_dict["ID"].append(examples_npy_dir)
             string_to_add = str(lines[0][6: -1])
             if "{" in string_to_add:
                 string_to_add = lrs3_parse(string_to_add)
-            # print(string_to_add)
-            example_dict["TEXT"].append(string_to_add)
-            # print(example_dict)
+            if args["MAX_CHAR_LEN"] > len(string_to_add) >= 2:
+                example_dict["ID"].append(examples_npy_dir)
+                example_dict["TEXT"].append(string_to_add)
 
     if os.path.isfile(val_dir_file):
         os.remove(val_dir_file)
@@ -225,7 +228,6 @@ def generate_val_file(val):
             f.writelines(example_dict["ID"][i])
             f.writelines(example_dict["TEXT"][i])
             f.writelines("\n")
-
 
 def generate_test_file(test):
     # Generating train.txt for splitting the pretrain set into train sets
@@ -257,6 +259,117 @@ def generate_test_file(test):
             f.writelines(example_dict["ID"][i])
             f.writelines(example_dict["TEXT"][i])
             f.writelines("\n")
+
+
+def generate_extended_test_file(test,pretrain):
+    # Generating val.txt for splitting the pretrain set into validation sets
+    test_dir = args["TEST_DIRECTORY"]
+    pretrain_dir = args["PRETRAIN_AUDIO_MODEL"]
+    test_dir_file = args["DATA_DIRECTORY"] + "/extended_test.txt"
+    example_dict = {
+        "ID": [],
+        "TEXT": []
+    }
+    print("Generating extrended test file...")
+    for test_dir in tqdm(test):
+        text_file = test_dir + ".txt"
+        with open(text_file, "r") as f:
+            lines = f.readlines()
+            # print(text_file)
+            examples_npy_dir = text_file.split("txt")[0][:-1]
+            # print(examples_npy_dir)
+            string_to_add = str(lines[0][6: -1])
+            if "{" in string_to_add:
+                string_to_add = lrs3_parse(string_to_add)
+            # print(string_to_add)
+            if args["MAX_CHAR_LEN"] > len(string_to_add) >= 2:
+                example_dict["ID"].append(examples_npy_dir)
+                example_dict["TEXT"].append(string_to_add)
+            # print(example_dict)
+
+    for test_dir in tqdm(pretrain):
+        text_file = test_dir + ".txt"
+        with open(text_file, "r") as f:
+            lines = f.readlines()
+            # print(text_file)
+            examples_npy_dir = text_file.split("txt")[0][:-1]
+            # print(examples_npy_dir)
+            string_to_add = str(lines[0][6: -1])
+            if "{" in string_to_add:
+                string_to_add = lrs3_parse(string_to_add)
+            # print(string_to_add)
+            if args["MAX_CHAR_LEN"] > len(string_to_add) >= 2:
+                example_dict["ID"].append(examples_npy_dir)
+                example_dict["TEXT"].append(string_to_add)
+
+            # print(example_dict)
+
+    if os.path.isfile(test_dir_file):
+        os.remove(test_dir_file)
+    with open(test_dir_file, "w") as f:
+        for i in range(len(example_dict["ID"])):
+            f.writelines(example_dict["ID"][i])
+            f.writelines(example_dict["TEXT"][i])
+            f.writelines("\n")
+
+def generate_extended_train_file(train,pretrain):
+    # Generating val.txt for splitting the pretrain set into validation sets
+    train_dir_file = args["DATA_DIRECTORY"] + "/extended_train.txt"
+    example_dict = {
+        "ID": [],
+        "TEXT": []
+    }
+    train_NOT_IN_USE = 0
+    pretrain_NOT_IN_USE = 0
+    print("Generating extrended train file...")
+    for train_dir in tqdm(train):
+        text_file = train_dir + ".txt"
+        with open(text_file, "r") as f:
+            lines = f.readlines()
+            examples_npy_dir = text_file.split("txt")[0][:-1]
+            string_to_add = str(lines[0][6: -1])
+            if "{" in string_to_add:
+                string_to_add = lrs3_parse(string_to_add)
+            if args["MAX_CHAR_LEN"] > len(string_to_add) >= 2:
+                example_dict["ID"].append(examples_npy_dir)
+                example_dict["TEXT"].append(string_to_add)
+            else:
+                train_NOT_IN_USE +=1
+
+    for test_dir in tqdm(pretrain):
+        text_file = test_dir + ".txt"
+        with open(text_file, "r") as f:
+            lines = f.readlines()
+            examples_npy_dir = text_file.split("txt")[0][:-1]
+            string_to_add = str(lines[0][6: -1])
+            if "{" in string_to_add:
+                string_to_add = lrs3_parse(string_to_add)
+            if args["MAX_CHAR_LEN"] > len(string_to_add) >= 2:
+                example_dict["ID"].append(examples_npy_dir)
+                example_dict["TEXT"].append(string_to_add)
+            else:
+                pretrain_NOT_IN_USE +=1
+
+    if os.path.isfile(train_dir_file):
+        os.remove(train_dir_file)
+    with open(train_dir_file, "w") as f:
+        for i in range(len(example_dict["ID"])):
+            f.writelines(example_dict["ID"][i])
+            f.writelines(example_dict["TEXT"][i])
+            f.writelines("\n")
+
+    return train_NOT_IN_USE , pretrain_NOT_IN_USE
+
+
+def split_trainval(fileList):
+    trainval_only = [x for x in fileList if (args["TRAIN_SET_NAME"] in x)]
+    print("We have a total of :" + str(len(trainval_only)))
+    print("Now we want a split 80/20")
+    train, val = train_test_split(trainval_only, test_size=.20, shuffle=False)
+    if collections.Counter(train) == collections.Counter(val):
+        print("WARNING: TRAIN AND VAL HAVE SOME OVERLAPPING ELEMENTS")
+        exit()
+    return train, val
 
 
 def check_files_correct_len(train, val, test):
