@@ -31,7 +31,7 @@ args["TRAINED_AUDIO_MODEL_FILE"] = "../../curr_trained_models/audio/train-step_2
 # args["AUDIO_RESULTS_TEXT_FILENAME"] = "test_results_audio_only_train-step_2350-wer_1.000.txt"
 # args["TRAINED_AUDIO_MODEL_FILE"] = "../../curr_trained_models/audio/train-step_2350-wer_1.000.pt"   #relative path to the trained model file
 
-args["AUDIO_VISUAL_RESULTS_TEXT_FILENAME"] = "test_results_audio_video_train-step_2790-wer_0.677.txt"
+args["AUDIO_VISUAL_RESULTS_TEXT_FILENAME"] = "test_results_audio_video_train-step_4999-wer_0.422_LM.txt"
 args["TRAINED_AUDIO_VISUAL_MODEL_FILE"] = "../../curr_trained_models/audio_video/train-step_2790-wer_0.677.pt"   #relative path to the trained model file
 
 args["PRETRAINED_AUDIO_MODEL_FILE"] = "../../pre_models/pre_models/audio-only.pt"
