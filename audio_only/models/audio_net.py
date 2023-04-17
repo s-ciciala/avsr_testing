@@ -8,6 +8,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 #
+from audio_only.config import args
+
+
 class AudioNet(nn.Module):
     def __init__(self, dModel, numLayers, inSize, fcHiddenSize, dropout, numClasses):
         super(AudioNet, self).__init__()
@@ -18,7 +21,7 @@ class AudioNet(nn.Module):
                                 bidirectional=True, batch_first=True)
 
         # Attention Mechanism
-        self.attention = nn.MultiheadAttention(embed_dim=dModel * 2, num_heads=1)
+        self.attention = nn.MultiheadAttention(embed_dim=dModel * 2, num_heads=args["TX_ATTENTION_HEADS"])
 
         # Speller (decoder) - LSTM
         self.speller = nn.LSTM(input_size=dModel * 2, hidden_size=dModel * 2, num_layers=numLayers, dropout=dropout,

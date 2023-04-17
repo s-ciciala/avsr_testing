@@ -38,6 +38,10 @@ args["PRETRAINED_AUDIO_MODEL_FILE"] = "../../pre_models/pre_models/audio-only.pt
 args["PRETRAINED_VIDEO_MODEL_FILE"] = "../../pre_models/pre_models/video-only.pt"
 args["PRETRAINED_AUDIO_VIDEO_MODEL_FILE"] = "../../pre_models/pre_models/audio-visual.pt"
 
+args["PRETRAINED_TRAINED_AUDIO_MODEL_FILE"] = "../../pre_models/pre_models/audio-only.pt"
+args["PRETRAINED_TRAINED_VIDEO_MODEL_FILE"] = "../../pre_models/pre_models/video-only.pt"
+args["PRETRAINED_TRAINED_AUDIO_VIDEO_MODEL_FILE"] = "../../pre_models/pre_models/audio-visual.pt"
+
 
 #data
 args["PRETRAIN_VAL_SPLIT"] = 0.01   #validation set size fraction during pretraining
@@ -109,21 +113,21 @@ args["NUM_CLASSES"] = 40    #number of output characters
 
 
 #transformer architecture
-# args["PE_MAX_LENGTH"] = 2500    #length up to which we calculate positional encodings
-# args["TX_NUM_FEATURES"] = 512   #transformer input feature size
-# args["TX_ATTENTION_HEADS"] = 8  #number of attention heads in multihead attention layer
-# args["TX_NUM_LAYERS"] = 6   #number of Transformer Encoder blocks in the stack
-# args["TX_FEEDFORWARD_DIM"] = 2048   #hidden layer size in feedforward network of transformer
-# args["TX_DROPOUT"] = 0.1    #dropout probability in the transformer
-args["DISPLAY_PREDICTIONS"] = True
 args["PE_MAX_LENGTH"] = 2500    #length up to which we calculate positional encodings
 args["TX_NUM_FEATURES"] = 512   #transformer input feature size
-args["TX_ATTENTION_HEADS"] = 4  #number of attention heads in multihead attention layer
-args["TX_NUM_LAYERS"] = 3  #number of Transformer Encoder blocks in the stack
-args["TX_FEEDFORWARD_DIM"] = 1024   #hidden layer size in feedforward network of transformer
-# args["TX_FEEDFORWARD_DIM"] = 2048   #hidden layer size in feedforward network of transformer
+args["TX_ATTENTION_HEADS"] = 8  #number of attention heads in multihead attention layer
+args["TX_NUM_LAYERS"] = 6   #number of Transformer Encoder blocks in the stack
+args["TX_FEEDFORWARD_DIM"] = 2048   #hidden layer size in feedforward network of transformer
 args["TX_DROPOUT"] = 0.1    #dropout probability in the transformer
-
+args["DISPLAY_PREDICTIONS"] = True
+# args["PE_MAX_LENGTH"] = 2500    #length up to which we calculate positional encodings
+# args["TX_NUM_FEATURES"] = 512   #transformer input feature size
+# args["TX_ATTENTION_HEADS"] = 4  #number of attention heads in multihead attention layer
+# args["TX_NUM_LAYERS"] = 3  #number of Transformer Encoder blocks in the stack
+# args["TX_FEEDFORWARD_DIM"] = 1024   #hidden layer size in feedforward network of transformer
+# # args["TX_FEEDFORWARD_DIM"] = 2048   #hidden layer size in feedforward network of transformer
+# args["TX_DROPOUT"] = 0.1    #dropout probability in the transformer
+#
 
 
 #beam search
