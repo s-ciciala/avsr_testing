@@ -28,6 +28,8 @@ args["TRAINED_VIDEO_MODEL_FILE"] = "../../curr_trained_models/video/train-step_3
 
 args["AUDIO_RESULTS_TEXT_FILENAME"] = "test_results_audio_only_train-step_2350-wer_1.000.txt"
 args["TRAINED_AUDIO_MODEL_FILE"] = "../../curr_trained_models/audio/train-step_2350-wer_1.000.pt"   #relative path to the trained model file
+# args["AUDIO_RESULTS_TEXT_FILENAME"] = "test_results_audio_only_train-step_2350-wer_1.000.txt"
+# args["TRAINED_AUDIO_MODEL_FILE"] = "../../curr_trained_models/audio/train-step_2350-wer_1.000.pt"   #relative path to the trained model file
 
 args["AUDIO_VISUAL_RESULTS_TEXT_FILENAME"] = "test_results_audio_video_train-step_2790-wer_0.677.txt"
 args["TRAINED_AUDIO_VISUAL_MODEL_FILE"] = "../../curr_trained_models/audio_video/train-step_2790-wer_0.677.pt"   #relative path to the trained model file
