@@ -46,7 +46,7 @@ def main():
                         audioParams, noiseParams)
     testLoader = DataLoader(testData, batch_size=args["BATCH_SIZE"], collate_fn=collate_fn, shuffle=True, **kwargs)
 
-
+    args["TRAINED_MODEL_FILE"] = args["TRAINED_AUDIO_MODEL_FILE"]
     if args["TRAINED_MODEL_FILE"] is not None:
 
         print("\nTrained Model File: %s" %(args["TRAINED_MODEL_FILE"]))
@@ -60,12 +60,20 @@ def main():
         # model.load_state_dict(torch.load(args["CODE_DIRECTORY"] + args["TRAINED_MODEL_FILE"], map_location=device))
         saved_state_dict = torch.load( args["TRAINED_MODEL_FILE"], map_location=device)
         new_state_dict = {}
-        for k, v in saved_state_dict.items():
-            name = k.replace('module.', '')  # remove the "module." prefix
-            new_state_dict[name] = v
-        model.load_state_dict(new_state_dict)
-        model.to(device)
-        loss_function = nn.CTCLoss(blank=0, zero_infinity=True)
+        try:
+            model_epoch = saved_state_dict["epoch"]
+            model_state_dict = saved_state_dict["model_state_dict"]
+            optimizer_state_dict = saved_state_dict["optimizer_state_dict"]
+            model_loss = saved_state_dict["loss"]
+            new_state_dict = {}
+            for k, v in model_state_dict.items():
+                name = k.replace('module.', '')  # remove the "module." prefix
+                new_state_dict[name] = v
+        except:
+            new_state_dict = {}
+            for k, v in saved_state_dict.items():
+                name = k.replace('module.', '')  # remove the "module." prefix
+                new_state_dict[name] = v
 
 
         # #declaring the language model
