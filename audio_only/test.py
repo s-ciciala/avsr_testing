@@ -88,7 +88,7 @@ def main():
         # lm.to(device)
         model.load_state_dict(new_state_dict)
         model.to(device)
-        loss_function = nn.CTCLoss(blank=0, zero_infinity=False)
+        loss_function = nn.CTCLoss(blank=0, zero_infinity=True)
         if not args["USE_LM"]:
             lm = None
 
