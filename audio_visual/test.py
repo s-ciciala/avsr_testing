@@ -42,7 +42,8 @@ def main():
     testLoader = DataLoader(testData, batch_size=args["BATCH_SIZE"], collate_fn=collate_fn, shuffle=True, **kwargs)
 
     # args["TRAINED_MODEL_FILE"]  = args["TRAINED_AUDIO_VISUAL_MODEL_FILE"]
-    args["TRAINED_MODEL_FILE"]  = args["PRETRAINED_AUDIO_VIDEO_MODEL_FILE"]
+    # args["TRAINED_MODEL_FILE"]  = args["PRETRAINED_AUDIO_VIDEO_MODEL_FILE"]
+    args["TRAINED_MODEL_FILE"]  = args["PRETRAINED_TRAINED_AUDIO_VIDEO_MODEL_FILE"]
 
     if args["TRAINED_MODEL_FILE"] is not None:
 

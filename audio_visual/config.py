@@ -40,7 +40,7 @@ args["PRETRAINED_AUDIO_VIDEO_MODEL_FILE"] = "../../pre_models/pre_models/audio-v
 
 args["PRETRAINED_TRAINED_AUDIO_MODEL_FILE"] = "../../pre_models/pre_models/audio-only.pt"
 args["PRETRAINED_TRAINED_VIDEO_MODEL_FILE"] = "../../pre_models/pre_models/video-only.pt"
-args["PRETRAINED_TRAINED_AUDIO_VIDEO_MODEL_FILE"] = "../../pre_models/pre_models/audio-visual.pt"
+args["PRETRAINED_TRAINED_AUDIO_VIDEO_MODEL_FILE"] = "../../curr_trained_models/audio_video/train-step_4999-wer_0.422.pt"
 
 
 #data
@@ -140,7 +140,7 @@ args["USE_LM"] = False  #whether to use language model for decoding
 
 #testing
 args["TEST_DEMO_DECODING"] = "greedy"   #test/demo decoding type - "greedy" or "search"
-args["TEST_DEMO_NOISY"] = False #test/demo with noisy audio
+args["TEST_DEMO_NOISY"] = True #test/demo with noisy audio
 args["TEST_DEMO_MODE"] = "AV"   #mode to use AV model in - "AO" or "VO" or "AV"
 
 
