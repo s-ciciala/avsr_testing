@@ -50,12 +50,18 @@ def main():
     if args["TRAINED_MODEL_FILE"] is not None:
 
         print("\nTrained Model File: %s" %(args["TRAINED_MODEL_FILE"]))
-
-        #declaring the model, loss function and loading the trained model weights
-        model = AudioNet(args["TX_NUM_FEATURES"], args["TX_ATTENTION_HEADS"], args["TX_NUM_LAYERS"],
-                         args["PE_MAX_LENGTH"],
-                         args["AUDIO_FEATURE_SIZE"], args["TX_FEEDFORWARD_DIM"], args["TX_DROPOUT"],
-                         args["NUM_CLASSES"])
+        #REG
+        # model = AudioNet(args["TX_NUM_FEATURES"], args["TX_ATTENTION_HEADS"], args["TX_NUM_LAYERS"],
+        #                  args["PE_MAX_LENGTH"],
+        #                  args["AUDIO_FEATURE_SIZE"], args["TX_FEEDFORWARD_DIM"], args["TX_DROPOUT"],
+        #                  args["NUM_CLASSES"])
+        #LSTM ONLY
+        model = AudioNet(dModel=args["TX_NUM_FEATURES"],
+                         numLayers=args["TX_NUM_LAYERS"],
+                         inSize=args["AUDIO_FEATURE_SIZE"],
+                         fcHiddenSize=args["TX_FEEDFORWARD_DIM"],
+                         dropout=args["TX_DROPOUT"],
+                         numClasses=args["NUM_CLASSES"])
 
         # model.load_state_dict(torch.load(args["CODE_DIRECTORY"] + args["TRAINED_MODEL_FILE"], map_location=device))
         saved_state_dict = torch.load( args["TRAINED_MODEL_FILE"], map_location=device)
