@@ -80,6 +80,9 @@ def main():
         # lm = LRS2CharLM()
         # lm.load_state_dict(torch.load(args["TRAINED_LM_FILE"], map_location=device))
         # lm.to(device)
+        model.load_state_dict(new_state_dict)
+        model.to(device)
+        loss_function = nn.CTCLoss(blank=0, zero_infinity=False)
         if not args["USE_LM"]:
             lm = None
 
